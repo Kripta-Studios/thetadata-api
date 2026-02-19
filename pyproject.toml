@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thetadata_api"
+version = "0.1.0"
+authors = [
+  { name="Software Engineer" },
+]
+description = "A professional asynchronous wrapper for ThetaData v3 Local API"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+dependencies = [
+    "httpx>=0.24.0",
+    "pandas>=2.0.0",
+    "pyarrow>=12.0.0",
+    "tenacity>=8.2.0",
+    "numpy>=1.24.0"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["thetadata_api*"]

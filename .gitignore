@@ -1,0 +1,26 @@
+# Python bytecode e instaladores
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+
+# Datos (IMPORTANTE: No subir gigas de datos a GitHub)
+rt_data/
+data_underlying/
+data_options/
+data_underlying_derived/
+*.parquet
+*.csv
+
+# Logs y Auditoría
+*.log
+retry_audit.csv
+request_stats.csv
+
+# Configuración y Entornos
+.venv/
+env/
+.env
+creds.txt
