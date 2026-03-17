@@ -5,12 +5,13 @@ from .models import OptionData, UnderlyingData
 from .utils import timed_get, fetch_with_interval_fallback, parse_response, RequestStats, RetryAuditLog, get_logger
 from .corrector import fix_dataframe
 
+
 class ThetaClient:
     """HTTP Client to interact with Theta Terminal Local (v3)."""
     
     def __init__(self, base_url: str = "http://127.0.0.1:25503/v3"):
         self.base_url = base_url
-        self.session = httpx.AsyncClient()
+        self.session = httpx.AsyncClient(timeout=120.0)
         self.logger = get_logger("ThetaClient")
         self.stats = RequestStats()
         self.audit = RetryAuditLog()
