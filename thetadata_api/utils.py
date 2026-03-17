@@ -66,7 +66,7 @@ async def timed_get(client: httpx.AsyncClient, url: str, params: Dict[str, Any],
                    stats: RequestStats, endpoint: str) -> Tuple[Dict[str, Any], int]:
     start_time = time.time()
     try:
-        response = await client.get(url, params=params, timeout=30.0)
+        response = await client.get(url, params=params, timeout=120.0)
         duration = time.time() - start_time
         stats.add_stat(endpoint, duration, response.status_code)
         
