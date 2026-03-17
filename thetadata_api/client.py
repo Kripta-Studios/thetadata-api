@@ -106,6 +106,7 @@ class ThetaClient:
 
                 # 4. Processing and Aggregation
                 df['timestamp'] = pd.to_datetime(df['timestamp'].astype(str), format='mixed', errors='coerce')
+
                 df = df.dropna(subset=['underlying_price']).sort_values('timestamp')
                 
                 # Group by minute to create OHLC
