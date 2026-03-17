@@ -26,7 +26,7 @@ def fix_dataframe(df: pd.DataFrame) -> pd.DataFrame:
         if row[cols].isna().any() and not row[cols].isna().all():
             # Find the best valid value to fill the holes in this specific minute
             valid_val = row['close'] if pd.notna(row.get('close')) else row.combine_first(pd.Series(row[cols])).dropna().iloc[0]
-            df_clean.loc[idx, cols] = row[cols].fillna(valid_val)
+            df_clean.loc[idx, cols] = row[cols].fillna(valid_val).infer_objects(copy=False)
 
     # 3. Gap repair (Fully NaN rows -> backward then forward fill)
     null_mask = df_clean[cols].isna().all(axis=1)
