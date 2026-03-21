@@ -63,10 +63,15 @@ class ThetaClient:
         if not exps: 
             raise Exception(f"No expirations available for {symbol} on {date}")
         
-        # Try the first 2 expirations to find data
-        for target_exp in exps[:2]:
+        # Try the first 4 expirations to find data (especially useful for VIX non-Wednesdays)
+        for target_exp in exps[:4]:
             # 2. Get Strikes
-            strikes = await self.get_strikes(symbol, target_exp, date)
+            try:
+                strikes = await self.get_strikes(symbol, target_exp, date)
+            except Exception as e:
+                self.logger.debug(f"Failed to get strikes for {symbol} on exp {target_exp}: {e}")
+                continue
+
             if not strikes: 
                 continue
                 
@@ -85,9 +90,14 @@ class ThetaClient:
                     "format": "json"
                 }
                 
-                resp, _ = await fetch_with_interval_fallback(
-                    self.session, url, params, self.logger, self.audit, self.stats, "underlying_proxy"
-                )
+                try:
+                    resp, _ = await fetch_with_interval_fallback(
+                        self.session, url, params, self.logger, self.audit, self.stats, "underlying_proxy"
+                    )
+                except Exception as e:
+                    # HTTP 472 expected here when trying to pull morning settled options or missing intra-day data
+                    self.logger.debug(f"Failed to fetch {right} for {symbol} exp {target_exp}: {e}")
+                    continue
                 
                 raw_items = parse_response(resp)
                 if not raw_items:
