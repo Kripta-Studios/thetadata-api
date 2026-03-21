@@ -23,6 +23,8 @@ The `ThetaClient` is designed to interact with the Theta Terminal Local API, ena
 
 ## Installation
 
+Requires the [ThetaTerminalv3.jar](https://download-unstable.thetadata.us/ThetaTerminalv3.jar) service up and running in the port 25503/v3.
+
 To install the required dependencies, run:
 
 ```bash
