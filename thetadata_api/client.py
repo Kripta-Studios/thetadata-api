@@ -11,7 +11,7 @@ class ThetaClient:
     
     def __init__(self, base_url: str = "http://127.0.0.1:25503/v3"):
         self.base_url = base_url
-        self.session = httpx.AsyncClient(timeout=120.0)
+        self.session = httpx.AsyncClient(timeout=180.0)
         self.logger = get_logger("ThetaClient")
         self.stats = RequestStats()
         self.audit = RetryAuditLog()
