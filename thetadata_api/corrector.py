@@ -1,4 +1,5 @@
 import pandas as pd
+pd.set_option('future.no_silent_downcasting', True)
 from pathlib import Path
 import numpy as np
 from .utils import get_logger
